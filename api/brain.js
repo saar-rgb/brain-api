@@ -7,6 +7,15 @@ module.exports = async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
   if (req.method === 'OPTIONS') return res.status(200).end();
 
+  // Auth — require API key
+  const BRAIN_API_KEY = process.env.BRAIN_API_KEY;
+  if (BRAIN_API_KEY) {
+    const provided = req.headers['x-api-key'] || req.query.key;
+    if (provided !== BRAIN_API_KEY) {
+      return res.status(401).json({ error: 'Unauthorized. Provide x-api-key header or ?key= param.' });
+    }
+  }
+
   const { agent, format, file } = req.query;
 
   // GET /api/brain — no params — list available agents
