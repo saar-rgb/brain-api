@@ -48,7 +48,7 @@ module.exports = async function handler(req, res) {
     const totalChars = results.reduce((sum, r) => sum + r.content.length, 0);
     const estimatedTokens = Math.ceil(totalChars / 3.5);
 
-    res.setHeader('X-Agent', agentInfo.name);
+    res.setHeader('X-Agent', agentInfo.name.replace(/[^\x20-\x7E]/g, '-'));
     res.setHeader('X-File-Count', results.length.toString());
     res.setHeader('X-Estimated-Tokens', estimatedTokens.toString());
 
