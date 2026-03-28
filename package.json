@@ -1,0 +1,6 @@
+{
+  "name": "brain-api",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Central brain API — serves agent context (SOPs, lessons, brain files) to any automation"
+}
